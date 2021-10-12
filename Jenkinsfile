@@ -16,6 +16,7 @@ pipeline
         {
             steps {
                 echo "Build"
+                mvn clean install
             }
             
         }
