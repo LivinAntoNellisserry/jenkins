@@ -1,7 +1,10 @@
 pipeline 
 {
     agent any
-    
+    tools {
+        maven "MAVEN"
+        jdk "JDK"
+    }
     stages 
     {
         stage ('Initialize') 
@@ -9,6 +12,8 @@ pipeline
             steps
             {
                 echo "Initialize"
+                echo "PATH = ${M2_HOME}/bin:${PATH}"
+                echo "M2_HOME = /Program Files/apache-maven-3.8.3"
             }
         }
 
