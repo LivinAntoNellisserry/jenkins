@@ -21,7 +21,8 @@ pipeline
         {
             steps {
                 echo "Build"
-                sh "mvn clean install"
+                dir("/var/lib/jenkins/workspace/demopipelinetask/my-app") {
+                sh 'mvn -B -DskipTests clean package'
             }
             
         }
