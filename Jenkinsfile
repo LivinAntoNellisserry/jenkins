@@ -1,14 +1,30 @@
-pipeline {
+pipeline 
+{
     agent any
-    environment{
-        PATH = "C:/Program Files/apache-maven-3.8.3/bin:$PATH"
+    tools 
+    {
+        maven 'maven-3.8.3'
+        jdk 'jdk-11'
     }
-
-    stages {
-        stage('Build') {
-            steps {
-                sh "mvn clean install"
+    stages 
+    {
+        stage ('Initialize') 
+        {
+            steps
+            {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
             }
+        }
+
+        stage ('Build') 
+        {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+            }
+            
         }
     }
 }
