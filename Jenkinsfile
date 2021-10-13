@@ -1,30 +1,34 @@
-pipeline 
+pipeline
 {
     agent any
-    tools {
-        maven "MAVEN"
-        jdk "JDK"
-    }
-    stages 
+    stages
     {
-        stage ('Initialize') 
+        stage ('Compile Stage')
         {
             steps
             {
-                echo "Initialize"
-                echo "PATH = ${M2_HOME}/bin:${PATH}"
-                echo "M2_HOME = /Program Files/apache-maven-3.8.3"
+                withMaven(maven : 'MAVEN') {
+                    bat'mvn clean compile'
+                }
             }
         }
-
-        stage ('Build') 
+        stage ('Testing Stage')
         {
-            steps {
-                echo "Build"
-                dir("/var/lib/jenkins/workspace/demopipelinetask/my-app") 
-                sh 'mvn -B -DskipTests clean package'
+            steps
+            {
+                withMaven(maven : 'MAVEN') {
+                    bat'mvn test'
+                }
             }
-            
+        }
+        stage ('Install Stage')
+        {
+            steps
+            {
+                withMaven(maven : 'MAVEN') {
+                    bat'mvn install'
+                }
+            }
         }
     }
 }
