@@ -3,6 +3,8 @@ pipeline
     agent any
     stages
     {
+        //MAVEN is name given in global tool configuration
+        //install plugins: pipeline and pipeline maven integration
         stage ('Compile Stage')
         {
             steps
